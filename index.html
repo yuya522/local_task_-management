@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プライベートタスク管理</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-bar">
+        <a href="#form" data-target="form">チケット発行・編集</a>
+        <a href="#list" data-target="list">チケット一覧</a>
+        <a href="#gantt" data-target="gantt">ガントチャート</a>
+    </div>
+
+    <div id="form-content" class="content active">
+        <h1>チケット発行・編集</h1>
+        <div class="form-container">
+            <form id="task-form">
+                <input type="hidden" id="task-id">
+                <label for="parent-id">親チケットID:</label>
+                <input type="number" id="parent-id"><br>
+                <label for="name">タスク名:</label>
+                <input type="text" id="name" required><br>
+                <label for="due-date">完了日:</label>
+                <input type="date" id="due-date" required><br>
+                <label for="priority">優先度:</label>
+                <select id="priority">
+                    <option value="高">高</option>
+                    <option value="中">中</option>
+                    <option value="低">低</option>
+                </select><br>
+                <label for="status">状態:</label>
+                <select id="status">
+                    <option value="未着手">未着手</option>
+                    <option value="進行中">進行中</option>
+                    <option value="完了">完了</option>
+                </select><br>
+                <label for="description">内容:</label>
+                <textarea id="description"></textarea><br>
+                <button type="submit">保存</button>
+                <button type="button" onclick="resetForm()">リセット</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="list-content" class="content">
+        <h1>チケット一覧</h1>
+        <div class="filter-controls">
+            <label for="list-status-filter">状態:</label>
+            <select id="list-status-filter">
+                <option value="すべて">すべて</option>
+                <option value="未着手">未着手</option>
+                <option value="進行中">進行中</option>
+                <option value="完了">完了</option>
+            </select>
+            <label for="list-priority-filter">優先度:</label>
+            <select id="list-priority-filter">
+                <option value="すべて">すべて</option>
+                <option value="高">高</option>
+                <option value="中">中</option>
+                <option value="低">低</option>
+            </select>
+            <label for="list-parent-id-filter">親ID:</label>
+            <select id="list-parent-id-filter">
+                <option value="すべて">すべて</option>
+            </select>
+            <button id="list-filter-button">検索</button>
+        </div>
+        <div class="list-container">
+            <table id="task-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>親ID</th>
+                        <th>タスク名</th>
+                        <th>内容</th>
+                        <th>完了日</th>
+                        <th>優先度</th>
+                        <th>状態</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="gantt-content" class="content">
+        <h1>ガントチャート</h1>
+        <div class="filter-controls">
+            <label for="gantt-status-filter">状態:</label>
+            <select id="gantt-status-filter">
+                <option value="すべて">すべて</option>
+                <option value="未着手">未着手</option>
+                <option value="進行中">進行中</option>
+                <option value="完了">完了</option>
+            </select>
+            <label for="gantt-priority-filter">優先度:</label>
+            <select id="gantt-priority-filter">
+                <option value="すべて">すべて</option>
+                <option value="高">高</option>
+                <option value="中">中</option>
+                <option value="低">低</option>
+            </select>
+            <label for="gantt-parent-id-filter">親ID:</label>
+            <select id="gantt-parent-id-filter">
+                <option value="すべて">すべて</option>
+            </select>
+            <button id="gantt-filter-button">検索</button>
+        </div>
+        <div class="gantt-container">
+            <div class="holiday-settings">
+                <label><input type="checkbox" id="sat-holiday" checked>土曜日を休日にする</label>
+                <label><input type="checkbox" id="sun-holiday" checked>日曜日を休日にする</label>
+                <div class="custom-holiday-form">
+                    <label for="custom-holiday-date">カスタム休暇を追加:</label>
+                    <input type="date" id="custom-holiday-date">
+                    <button onclick="addCustomHoliday()">追加</button>
+                </div>
+            </div>
+            <div class="gantt-nav">
+                <button onclick="changeMonth(-1)">前月</button>
+                <h2 id="current-month-display"></h2>
+                <button onclick="changeMonth(1)">次月</button>
+            </div>
+            <div id="gantt-chart-area">
+                </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
