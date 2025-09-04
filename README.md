@@ -1,0 +1,2 @@
+# local_task_-management
+redminiをほぼ真似てgeminiに作ってもらった自己学習用
